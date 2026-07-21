@@ -2,21 +2,17 @@
 nixPkgs = [
   "python312",
   "glib",
+  "pkg-config",
+  "binutils",
   "cairo",
   "pango",
-  "gdk-pixbuf",
   "harfbuzz",
+  "gdk-pixbuf",
   "fontconfig",
   "freetype",
-  "libffi",
-  "libpng",
-  "libjpeg",
-  "zlib",
-  "fribidi",
-  "expat",
-  "shared-mime-info"
+  "libffi"
 ]
 
 [variables]
-LD_LIBRARY_PATH="/nix/store:/root/.nix-profile/lib:/usr/lib"
-GI_TYPELIB_PATH="/root/.nix-profile/lib/girepository-1.0"
+LD_LIBRARY_PATH="/root/.nix-profile/lib:/usr/lib"
+PKG_CONFIG_PATH="/root/.nix-profile/lib/pkgconfig"
