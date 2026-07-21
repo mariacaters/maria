@@ -129,5 +129,5 @@ LOGOUT_REDIRECT_URL = "login"
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 CSRF_TRUSTED_ORIGINS = [
-    "https://mariacaters.up.railway.app",
+    "https://mariacatering.up.railway.app",
 ]
