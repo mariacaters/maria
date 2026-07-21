@@ -6,13 +6,14 @@ nixPkgs = [
   "binutils",
   "cairo",
   "pango",
-  "harfbuzz",
   "gdk-pixbuf",
+  "harfbuzz",
   "fontconfig",
   "freetype",
   "libffi"
 ]
 
-[variables]
-LD_LIBRARY_PATH="/root/.nix-profile/lib:/usr/lib"
-PKG_CONFIG_PATH="/root/.nix-profile/lib/pkgconfig"
+[phases.build]
+cmds = [
+  "find /nix/store -name 'libgobject-2.0.so*' || true"
+]
