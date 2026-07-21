@@ -213,7 +213,11 @@ def delete_bill(request, id):
 
 @login_required
 def print_bill(request, id):
-    from weasyprint import HTML
+    try:
+        from weasyprint import HTML
+    except Exception as e:
+        return HttpResponse(f"<pre>{repr(e)}</pre>", status=500)
+
     bill = get_object_or_404(
         Bill.objects.prefetch_related("details", "items"),
         id=id
