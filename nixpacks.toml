@@ -1,14 +1,22 @@
 [phases.setup]
 nixPkgs = [
-  "python3",
+  "python312",
   "glib",
   "cairo",
   "pango",
   "gdk-pixbuf",
-  "fontconfig",
   "harfbuzz",
+  "fontconfig",
   "freetype",
   "libffi",
+  "libpng",
   "libjpeg",
-  "zlib"
+  "zlib",
+  "fribidi",
+  "expat",
+  "shared-mime-info"
 ]
+
+[variables]
+LD_LIBRARY_PATH="/nix/store:/root/.nix-profile/lib:/usr/lib"
+GI_TYPELIB_PATH="/root/.nix-profile/lib/girepository-1.0"
