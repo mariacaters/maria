@@ -275,15 +275,19 @@ function updateSuggestions(input){
 
     }
 
-    items.forEach(function(item){
+   const search = input.value.toLowerCase();
 
-        const option =
-            document.createElement("option");
+items.forEach(function(item){
+
+    if(item.toLowerCase().startsWith(search)){
+
+        const option = document.createElement("option");
 
         option.value = item;
 
         datalist.appendChild(option);
 
-    });
+    }
 
+});
 }

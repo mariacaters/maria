@@ -1,0 +1,425 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MC #{{ bill.id }}</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:"Times New Roman",serif;
+    background:#f4f4f4;
+    padding:20px;
+}
+
+.page{
+    max-width:900px;
+    margin:auto;
+    background:white;
+    min-height:100vh;
+    background-image:url("{% static 'images/frame.png' %}");
+    background-size:100% 100%;
+    background-repeat:no-repeat;
+    background-color:white;
+    position:relative;
+    box-shadow:0 0 20px rgba(0,0,0,.1);
+
+}
+
+.header{
+    text-align:center;
+    border-bottom:2px solid #000;
+    padding-bottom:20px;
+    margin-bottom:25px;
+    padding:25px;
+}
+
+.logo{
+    width:90px;
+    height:90px;
+    object-fit:contain;
+}
+
+.company-name{
+    font-size:34px;
+    font-weight:bold;
+    margin-top:10px;
+}
+
+.tagline{
+    margin-top:5px;
+    color:#555;
+}
+
+.details{
+    margin-bottom:3px;
+}
+
+.details table{
+    width:100%;
+}
+
+.details td{
+    padding:6px 0;
+    color:white;
+}
+
+.section{
+    margin-bottom:25px;
+}
+
+.section-title{
+    font-size:18px;
+    font-weight:bold;
+    text-transform:uppercase;
+    border-bottom:1px solid #ccc;
+    padding-bottom:5px;
+    margin-bottom:10px;
+}
+
+.section ul{
+    margin-left:25px;
+    color:white;
+}
+
+.section li{
+    margin-bottom:6px;
+    font-size:17px;
+}
+
+.watermark{
+    position:fixed;
+    top:0%;
+    left:0%;
+    opacity:1;
+    z-index:-1;
+}
+
+.watermark img{
+    width:100%;
+}
+
+.content{
+    position:relative;
+    z-index:1;
+    margin-top:10px;
+}
+
+.header{
+    background:#000;
+    color:white;
+    display:flex;
+    align-items:center;
+    gap:25px;
+    padding:25px 35px;
+    margin:-50px -50px 30px -50px;
+    position:relative;
+    overflow:hidden;
+}
+
+.header::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background: radial-gradient(circle at top right, rgba(212,175,55,.35), transparent 35%);
+    pointer-events:none;
+}
+
+.header-right{
+    flex:1;
+}
+
+.brand-name{
+    font-size:72px;
+    line-height:1;
+    font-weight:700;
+    letter-spacing:4px;
+    color:#d4af37;
+    font-family:'Cinzel', serif;
+}
+
+.brand-subtitle{
+    font-size:30px;
+    letter-spacing:2px;
+    color:#d4af37;
+    margin-top:5px;
+    font-family:'Cinzel', serif;
+}
+
+.menu{
+    margin:40px;
+    margin-top:5px;
+    padding:20px;
+    padding-top:5px;
+}
+
+.print-header{
+    width:100%;
+    border-bottom:3px solid #000;
+    padding-bottom:15px;
+    margin-bottom:25px;
+    background-color:transparent;
+    padding:25px;
+}
+
+.logo-cell{
+    width:140px;
+    vertical-align:middle;
+}
+
+.title-cell{
+    vertical-align:middle;
+}
+
+.print-header{
+    display:flex;
+    align-items:center;
+    gap:20px;
+    border-bottom:3px solid #c9a227;
+    padding-bottom:15px;
+    margin-bottom:25px;
+    padding:30px;
+    opacity:0;
+}
+
+.brand-name{
+    font-family:'Cinzel', serif;
+    font-size:42px;
+    color:#c9a227;
+    font-weight:900;
+}
+
+.brand-subtitle{
+    font-family:'Cinzel', serif;
+    color:#c9a227;
+    font-size:23px;
+    letter-spacing:2px;
+}
+
+.print-header{
+    position:relative;
+}
+
+.contact-info{
+    position:absolute;
+    top:25px;
+    right:30px;
+    text-align:right;
+    color:white;
+    font-size:13px;
+    line-height:1.8;
+    font-family:Arial, sans-serif;
+    font-size:16px;
+}
+
+.tagline{
+    color:#666;
+    margin-top:5px;
+    font-size:13px;
+}
+
+.section-title{
+    color:#c9a227;
+    border-bottom:1px solid #c9a227;
+    font-family:'Cinzel', serif;
+    font-size:24px;
+    margin-bottom:10px;
+    padding-bottom:6px;
+}
+
+.print-matrix {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+html, body {
+    background: black;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.watermark{
+    z-index:0;
+}
+
+.page {
+    box-shadow: none;
+    margin: 0;
+    max-width: none;
+    background: none !important;
+}
+
+.content {
+    padding: 0;
+}
+
+.print-matrix {
+    display: table !important;
+    width: 100%;
+}
+
+.matrix-header {
+    display: table-header-group !important;
+}
+
+.matrix-body {
+    display: table-row-group !important;
+}
+
+.matrix-cell {
+    padding: 0 45px 35px 45px;
+}
+
+.print-header {
+    margin: 0;
+    padding: 40px 45px 15px 45px;
+    border-bottom: none;
+}
+
+.menu {
+    margin: 0;
+    padding: 60px 35px 20px 35px;
+    position: relative;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+}
+
+.section {
+
+    margin-top: 0;
+    margin-bottom: 25px;
+}
+
+.section-title::before {
+    display: none !important;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image:url("{{ request.build_absolute_uri }}{% static 'images/frame_img.png' %}");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    z-index: 0;
+}
+
+.page::after {
+    display: none !important;
+}
+
+@page {
+    size: A4;
+    margin: 0;
+}
+</style>
+</head>
+
+<body>
+
+<div class="page">
+
+    <div class="watermark">
+        <img src="{% static 'images/f2.png' %}">
+    </div>
+
+    <div class="content">
+        <table class="print-matrix">
+
+            <thead class="matrix-header">
+                <tr>
+                    <td>
+                       <table class="print-header">
+                        <tr>
+                            <td class="logo-cell">
+                                <img src="{{ request.build_absolute_uri }}{% static 'images/logo.png' %}" class="logo">
+                            </td>
+                            <td class="title-cell">
+                                <div class="brand-name">MARIA</div>
+                                <div class="brand-subtitle">CATERING & EVENTS</div>
+                                <div class="tagline">Experience you can trust. Flavors you'll remember.</div>
+                                <div class="contact-info">
+                                    <div>📞 9447456705</div>
+                                    <div>📞 9496452516</div>
+                                    <div>📞 8891856705</div>
+                                    <div style="color:#c9a227;font-size:17px;">Kothanalloor, Kottayam</div>
+                                </div>
+                            </td>
+                        </tr>
+                       </table>
+                    </td>
+                </tr>
+            </thead>
+
+            <tbody class="matrix-body">
+                <tr>
+                    <td class="matrix-cell">
+                        <div class="menu">
+                            <div class="details">
+                                <table>
+                                    {% for detail in bill.details.all %}
+                                    <tr>
+                                        <td width="180">
+                                            <strong>{{ detail.key }}</strong>
+                                        </td>
+                                        <td>
+                                            : {{ detail.value }}
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </table>
+                            </div>
+
+                            <div class="section">
+                                <div class="section-title">
+                                    Bill Items
+                                </div>
+
+                                <table style="width:100%;border-collapse:collapse;color:white;">
+                                    {% for item in bill.items.all %}
+                                    <tr>
+                                        <td style="padding:8px 0;">
+                                            {{ item.key }}
+                                        </td>
+
+                                        <td style="padding:8px 0;text-align:right;font-weight:bold;">
+                                            {{ item.value }}
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </table>
+                            </div>
+
+                            <div class="section" style="page-break-inside: avoid;break-inside: avoid;">
+                                <div class="section-title">
+                                    Total
+                                </div>
+
+                                <table style="width:100%;color:white;">
+                                    <tr>
+                                        <td style="text-align:right;font-size:22px;font-weight:bold;">
+                                            {{ bill.total }}
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+
+        </table>
+    </div>
+</div>
+</body>
+</html>

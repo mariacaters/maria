@@ -1,0 +1,378 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Bill</title>
+
+<style>
+    *{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:Arial,sans-serif;
+    background:#f4f4f4;
+    padding:15px;
+}
+
+.container{
+    max-width:1200px;
+    margin:auto;
+    background:#fff;
+    padding:20px;
+    border-radius:10px;
+    box-shadow:0 2px 10px rgba(0,0,0,.1);
+}
+
+h1{
+    text-align:center;
+    margin-bottom:20px;
+}
+
+.form-row{
+    margin-bottom:15px;
+}
+
+label{
+    display:block;
+    margin-bottom:5px;
+    font-weight:bold;
+}
+
+.form-row input{
+    width:100%;
+    padding:12px;
+    border:1px solid #ccc;
+    border-radius:5px;
+    font-size:15px;
+}
+
+.detail-row{
+    display:flex;
+    gap:10px;
+    margin-bottom:10px;
+}
+
+.detail-row input{
+    flex:1;
+}
+
+.remove-detail-btn{
+    width:45px;
+    border:none;
+    border-radius:5px;
+    background:#dc2626;
+    color:#fff;
+    cursor:pointer;
+    font-size:18px;
+}
+
+.remove-detail-btn:hover{
+    background:#b91c1c;
+}
+
+.add-category-btn{
+    margin-top:15px;
+    padding:12px 20px;
+    border:none;
+    border-radius:5px;
+    background:#2563eb;
+    color:#fff;
+    cursor:pointer;
+    font-size:15px;
+}
+
+.add-category-btn:hover{
+    background:#1d4ed8;
+}
+
+.gold-divider {
+    height: 5px;
+    background: linear-gradient(90deg, #b8860b, #ffd700, #b8860b);
+    border: none;
+    border-radius: 5px;
+    margin: 25px 0;
+}
+
+.total-section {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 15px;
+}
+
+.total-container {
+    width: 45%;
+}
+
+.total-input {
+    width: 100%;
+    padding: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.save-btn{
+    width:100%;
+    margin-top:15px;
+    padding:14px;
+    border:none;
+    border-radius:5px;
+    background:#16a34a;
+    color:#fff;
+    cursor:pointer;
+    font-size:16px;
+    font-weight:bold;
+}
+
+.save-btn:hover{
+    background:#15803d;
+}
+
+button{
+    transition:.2s;
+}
+
+@media(max-width:768px){
+
+    .container{
+        padding:15px;
+    }
+
+    .detail-row{
+        flex-direction:row;
+    }
+
+    .add-category-btn,
+    .save-btn{
+        width:100%;
+    }
+
+    .total-container {
+        width: 100%;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Edit Bill</h1>
+
+    <form method="post">
+
+        {% csrf_token %}
+
+        <div class="form-row">
+            <label>Bill Details</label>
+
+            <div id="detailsContainer">
+
+                {% for detail in bill.details.all %}
+                <div class="detail-row">
+                    <input
+                        type="text"
+                        name="detail_key[]"
+                        value="{{ detail.key }}"
+                        placeholder="Label">
+
+                    <input
+                        type="text"
+                        name="detail_value[]"
+                        value="{{ detail.value }}"
+                        placeholder="Value">
+
+                    <button
+                        type="button"
+                        class="remove-detail-btn">
+                        ×
+                    </button>
+                </div>
+                {% empty %}
+                <div class="detail-row">
+                    <input
+                        type="text"
+                        name="detail_key[]"
+                        placeholder="Label">
+
+                    <input
+                        type="text"
+                        name="detail_value[]"
+                        placeholder="Value">
+
+                    <button
+                        type="button"
+                        class="remove-detail-btn">
+                        ×
+                    </button>
+                </div>
+                {% endfor %}
+
+            </div>
+
+            <button
+                type="button"
+                class="add-category-btn"
+                id="addDetailBtn">
+
+                + Add Detail
+
+            </button>
+        </div>
+
+        <hr class="gold-divider">
+
+        <div class="form-row">
+            <label>Bill Items</label>
+
+            <div id="itemsContainer">
+
+                {% for item in bill.items.all %}
+                <div class="detail-row">
+                    <input
+                        type="text"
+                        name="item_key[]"
+                        value="{{ item.key }}"
+                        placeholder="Item">
+
+                    <input
+                        type="text"
+                        name="item_value[]"
+                        value="{{ item.value }}"
+                        placeholder="Amount">
+
+                    <button
+                        type="button"
+                        class="remove-detail-btn">
+                        ×
+                    </button>
+                </div>
+                {% empty %}
+                <div class="detail-row">
+                    <input
+                        type="text"
+                        name="item_key[]"
+                        placeholder="Item">
+
+                    <input
+                        type="text"
+                        name="item_value[]"
+                        placeholder="Amount">
+
+                    <button
+                        type="button"
+                        class="remove-detail-btn">
+                        ×
+                    </button>
+                </div>
+                {% endfor %}
+
+            </div>
+
+            <button
+                type="button"
+                class="add-category-btn"
+                id="addItemBtn">
+
+                + Add Item
+
+            </button>
+        </div>
+
+        <hr class="gold-divider">
+
+        <div class="total-section">
+            <div class="total-container">
+                <label>Total</label>
+                <input
+                    type="text"
+                    name="total"
+                    class="total-input"
+                    value="{{ bill.total }}"
+                    placeholder="Total Amount">
+            </div>
+        </div>
+
+        <button
+            type="submit"
+            class="save-btn">
+
+            Update Bill
+
+        </button>
+
+    </form>
+
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const detailsContainer = document.getElementById("detailsContainer");
+    const itemsContainer = document.getElementById("itemsContainer");
+
+    document.getElementById("addDetailBtn").onclick = function(){
+        const row = document.createElement("div");
+        row.className = "detail-row";
+        row.innerHTML = `
+            <input
+                type="text"
+                name="detail_key[]"
+                placeholder="Label">
+
+            <input
+                type="text"
+                name="detail_value[]"
+                placeholder="Value">
+
+            <button
+                type="button"
+                class="remove-detail-btn">
+                ×
+            </button>
+        `;
+        detailsContainer.appendChild(row);
+    };
+
+    document.getElementById("addItemBtn").onclick = function(){
+        const row = document.createElement("div");
+        row.className = "detail-row";
+        row.innerHTML = `
+            <input
+                type="text"
+                name="item_key[]"
+                placeholder="Item">
+
+            <input
+                type="text"
+                name="item_value[]"
+                placeholder="Amount">
+
+            <button
+                type="button"
+                class="remove-detail-btn">
+                ×
+            </button>
+        `;
+        itemsContainer.appendChild(row);
+    };
+
+    document.addEventListener("click", function(e){
+        if(e.target.classList.contains("remove-detail-btn")){
+            const row = e.target.parentElement;
+            const container = row.parentElement;
+            if(container.querySelectorAll(".detail-row").length > 1){
+                row.remove();
+            }
+        }
+    });
+});
+</script>
+</body>
+</html>

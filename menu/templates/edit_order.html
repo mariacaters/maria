@@ -51,6 +51,30 @@ label{
     font-size:15px;
 }
 
+.detail-row{
+    display:flex;
+    gap:10px;
+    margin-bottom:10px;
+}
+
+.detail-row input{
+    flex:1;
+}
+
+.remove-detail-btn{
+    width:45px;
+    border:none;
+    border-radius:5px;
+    background:#dc2626;
+    color:#fff;
+    cursor:pointer;
+    font-size:18px;
+}
+
+.remove-detail-btn:hover{
+    background:#b91c1c;
+}
+
 .table-wrapper{
     overflow-x:auto;
 }
@@ -290,30 +314,46 @@ button{
 {% csrf_token %}
 
 <div class="form-row">
-    <label>Event Name</label>
-    <input
-        type="text"
-        name="event_name"
-        value="{{ order.event_name }}"
-        required>
-</div>
 
-<div class="form-row">
-    <label>Event Date</label>
-    <input
-        type="date"
-        name="event_date"
-        value="{{ order.event_date|date:'Y-m-d' }}"
-        required>
-</div>
+    <label>Order Details</label>
 
-<div class="form-row">
-    <label>Rate</label>
-    <input
-        type="text"
-        name="rate"
-        value="{{ order.rate }}"
-        required>
+    <div id="detailsContainer">
+
+        {% for detail in order.details.all %}
+        <div class="detail-row">
+
+            <input
+                type="text"
+                name="detail_key[]"
+                value="{{ detail.key }}"
+                required>
+
+            <input
+                type="text"
+                name="detail_value[]"
+                value="{{ detail.value }}"
+                required>
+
+            <button
+                type="button"
+                class="remove-detail-btn">
+                ×
+            </button>
+
+        </div>
+        {% endfor %}
+
+    </div>
+
+    <button
+        type="button"
+        class="add-category-btn"
+        id="addDetailBtn">
+
+        + Add Detail
+
+    </button>
+
 </div>
 
 <div class="table-wrapper">
@@ -446,12 +486,12 @@ Update Order
 
 <td>
 
-<input
-    type="text"
-    class="item-input"
-    list="menu-items"
-    placeholder="Menu Item"
-    onfocus="updateSuggestions(this)">
+         <input
+            type="text"
+            name="category[]"
+            class="category-input"
+            placeholder="Category Name"
+            oninput="updateSuggestions(this)">
 
 </td>
 
@@ -718,6 +758,51 @@ window.addEventListener("DOMContentLoaded", function(){
                 });
 
         });
+
+});
+    const detailsContainer = document.getElementById("detailsContainer");
+
+document.getElementById("addDetailBtn").onclick = function(){
+
+    const row = document.createElement("div");
+
+    row.className = "detail-row";
+
+    row.innerHTML = `
+        <input
+            type="text"
+            name="detail_key[]"
+            placeholder="Label"
+            required>
+
+        <input
+            type="text"
+            name="detail_value[]"
+            placeholder="Value"
+            required>
+
+        <button
+            type="button"
+            class="remove-detail-btn">
+            ×
+        </button>
+    `;
+
+    detailsContainer.appendChild(row);
+
+};
+
+document.addEventListener("click", function(e){
+
+    if(e.target.classList.contains("remove-detail-btn")){
+
+        if(document.querySelectorAll(".detail-row").length > 1){
+
+            e.target.parentElement.remove();
+
+        }
+
+    }
 
 });
 </script>
