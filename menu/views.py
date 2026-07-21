@@ -3,7 +3,6 @@ from .models import *
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponse
 from django.template.loader import render_to_string
-from weasyprint import HTML
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.decorators import login_required
 
@@ -104,6 +103,7 @@ def delete_order(request, order_id):
 
 @login_required
 def download_pdf(request, pk):
+    from weasyprint import HTML
     order = MenuOrder.objects.get(pk=pk)
 
     html = render_to_string(
@@ -213,6 +213,7 @@ def delete_bill(request, id):
 
 @login_required
 def print_bill(request, id):
+    from weasyprint import HTML
     bill = get_object_or_404(
         Bill.objects.prefetch_related("details", "items"),
         id=id
