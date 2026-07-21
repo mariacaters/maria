@@ -2,10 +2,13 @@
 nixPkgs = [
   "python3",
   "glib",
-  "pango",
   "cairo",
+  "pango",
   "gdk-pixbuf",
   "fontconfig",
   "harfbuzz",
-  "libffi"
+  "freetype",
+  "libffi",
+  "libjpeg",
+  "zlib"
 ]
