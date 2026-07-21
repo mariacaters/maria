@@ -1,5 +1,6 @@
 [phases.setup]
 nixPkgs = [
+  "python3",
   "glib",
   "pango",
   "cairo",
