@@ -12,13 +12,9 @@ RUN apt-get update && apt-get install -y \
     libpango-1.0-0 \
     libpango1.0-dev \
     libgdk-pixbuf-2.0-0 \
-    libgdk-pixbuf2.0-dev \
     libffi-dev \
-    libjpeg62-turbo \
-    zlib1g \
     shared-mime-info \
     fonts-dejavu-core \
-    && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
 COPY requirements.txt .
