@@ -9,11 +9,17 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import get_user_model
 from django.http import HttpResponse
 
+from django.contrib.auth import get_user_model
+from django.http import HttpResponse
+
 def users(request):
     User = get_user_model()
-    return HttpResponse(
-        "<br>".join(User.objects.values_list("username", flat=True))
-    )
+    lines = []
+    for u in User.objects.all():
+        lines.append(
+            f"{u.username} | staff={u.is_staff} | super={u.is_superuser} | active={u.is_active}"
+        )
+    return HttpResponse("<br>".join(lines))
 
 @login_required
 def home(request):
