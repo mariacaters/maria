@@ -117,8 +117,8 @@ def download_pdf(request, pk):
     )
 
     pdf = HTML(
-        string=html,
-        base_url=request.build_absolute_uri("/")
+        string=html_string,
+        base_url=settings.STATIC_ROOT
     ).write_pdf()
 
     return HttpResponse(
@@ -234,7 +234,7 @@ def print_bill(request, id):
 
     pdf = HTML(
         string=html_string,
-        base_url=request.build_absolute_uri("/")
+        base_url=settings.STATIC_ROOT
     ).write_pdf()
 
     response = HttpResponse(
