@@ -6,8 +6,6 @@ from django.template.loader import render_to_string
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.decorators import login_required
 
-from django.contrib.auth import get_user_model
-from django.http import HttpResponse
 
 from django.contrib.auth import get_user_model
 from django.http import HttpResponse
@@ -21,7 +19,7 @@ def users(request):
         )
     return HttpResponse("<br>".join(lines))
 
-@login_required
+
 def home(request):
     return render(
         request,
