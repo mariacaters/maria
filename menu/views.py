@@ -7,20 +7,7 @@ from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.decorators import login_required
 
 
-from django.conf import settings
-from django.contrib.auth import get_user_model
-from django.http import HttpResponse
-
-def users(request):
-    User = get_user_model()
-
-    return HttpResponse(
-        f"DB ENGINE: {settings.DATABASES['default']['ENGINE']}<br>"
-        f"DB NAME: {settings.DATABASES['default']['NAME']}<br><br>"
-        + "<br>".join(User.objects.values_list("username", flat=True))
-    )
-
-
+@login_required
 def home(request):
     return render(
         request,
