@@ -6,6 +6,15 @@ from django.template.loader import render_to_string
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.decorators import login_required
 
+from django.contrib.auth import get_user_model
+from django.http import HttpResponse
+
+def users(request):
+    User = get_user_model()
+    return HttpResponse(
+        "<br>".join(User.objects.values_list("username", flat=True))
+    )
+
 @login_required
 def home(request):
     return render(
