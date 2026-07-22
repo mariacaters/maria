@@ -5,7 +5,6 @@ ENV PYTHONUNBUFFERED=1
 
 WORKDIR /app
 
-# Install WeasyPrint system dependencies
 RUN apt-get update && apt-get install -y \
     build-essential \
     libcairo2 \
@@ -13,15 +12,18 @@ RUN apt-get update && apt-get install -y \
     libpango-1.0-0 \
     libpango1.0-dev \
     libgdk-pixbuf-2.0-0 \
-    libgdk-pixbuf-2.0-dev \
+    libgdk-pixbuf2.0-dev \
     libffi-dev \
+    libjpeg62-turbo \
+    zlib1g \
     shared-mime-info \
     fonts-dejavu-core \
+    && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
 COPY requirements.txt .
 
-RUN pip install --no-cache-dir --upgrade pip
+RUN pip install --upgrade pip
 RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
