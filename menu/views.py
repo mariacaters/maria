@@ -108,7 +108,7 @@ def download_pdf(request, pk):
     from weasyprint import HTML
     order = MenuOrder.objects.get(pk=pk)
 
-    html = render_to_string(
+    html_string = render_to_string(
         "menu_pdf.html",
         {
             "order": order,
