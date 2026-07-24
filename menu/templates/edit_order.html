@@ -430,21 +430,21 @@ button{
 type="button"
 class="move-btn"
 onclick="moveUp(this)">
-↑
+Move Up ↑
 </button>
 
 <button
 type="button"
 class="move-btn"
 onclick="moveDown(this)">
-↓
+Move Down ↓
 </button>
 
 <button
 type="button"
 class="remove-btn"
 onclick="removeCategory(this)">
-×
+Remove
 </button>
 
 </td>
@@ -647,21 +647,21 @@ function updateHidden(box){
 }
 
 
-function removeCategory(btn){
+function removeCategory(btn) {
+    const rows = document.querySelectorAll(".category-row");
 
-    const rows =
-        document.querySelectorAll(".category-row");
-
-    if(rows.length === 1){
-
+    if (rows.length === 1) {
         alert("At least one category is required.");
-
         return;
+    }
 
+    const confirmed = confirm("Are you sure you want to delete this category?");
+
+    if (!confirmed) {
+        return;
     }
 
     btn.closest(".category-row").remove();
-
 }
 
 
